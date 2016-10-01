@@ -6,10 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 @Entity
-@JsonIgnoreProperties("senha")
+
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,6 +35,6 @@ public class Usuario {
 		return senha;
 	}
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = new Md5PasswordEncoder().encodePassword(senha, null);
 	}
 }

@@ -26,4 +26,19 @@ public class UsuarioDao {
 		TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		return query.getResultList();
 	}
+	
+	public Usuario logar(Usuario usuario) {
+		TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM Usuario u WHERE u.login = :login AND u.senha = :senha", Usuario.class);
+		query.setParameter("login", usuario.getLogin());
+		query.setParameter("senha", usuario.getSenha());
+		
+		// outra forma de fazer - forma certa
+		// List<Usuario> lista = query.getResultList();
+		
+		try {
+			return query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }
